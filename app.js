@@ -328,7 +328,6 @@ async function stakeRewards(userWallet, createdAt, amount) {
         userWallet,
         tokenCnt: 0.0,
       });
-
       await newUser.save();
     }
 
