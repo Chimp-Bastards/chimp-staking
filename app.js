@@ -169,8 +169,7 @@ async function initializeTimer() {
         stakeRewards(
           record.userWallet,
           record.createdAt,
-          process.env.REWARD_TOKEN_PER_LIMIT_TIME *
-          IGUANA_EXPERIENCE[record.experience]
+          process.env.REWARD_TOKEN_PER_LIMIT_TIME
         );
       }, process.env.LIMIT_REWARD_TIME); // per reward time
     }
@@ -238,7 +237,7 @@ async function stakeNFT(userWallet, nftAddress, transaction, experience) {
       stakeRewards(
         userWallet,
         record.createdAt,
-        process.env.REWARD_TOKEN_PER_LIMIT_TIME * IGUANA_EXPERIENCE[experience]
+        process.env.REWARD_TOKEN_PER_LIMIT_TIME
       );
     }, process.env.LIMIT_REWARD_TIME); // per reward time
   } catch (err) {
