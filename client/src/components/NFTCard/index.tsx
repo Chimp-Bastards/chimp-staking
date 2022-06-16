@@ -3,11 +3,17 @@ import Popup from "reactjs-popup";
 import "./index.css";
 import NFTDetailedCard from "../NFTDetailes";
 import { useState, useEffect } from "react";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 export interface INFTCardProps {
   element: NFTmap;
 }
 
 const NFTCard: React.FunctionComponent<INFTCardProps> = (props) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   // eslint-disable-next-line
   const [staked, setStaked] = useState(props.element.isStaked);
   const [selected, setSelected] = useState(props.element.isSelected);
@@ -28,7 +34,7 @@ const NFTCard: React.FunctionComponent<INFTCardProps> = (props) => {
       <div
         className="nftBox"
         onClick={selectNFT}
-        style={props.element.isSelected ? { border: "solid #1effa9" } : {}}
+        style={props.element.isSelected ? { border: "solid #1effa9", minWidth: matches ? '0' : '10rem', width: matches ? '80%': '' } : { minWidth: matches ? '0' : '10rem', width: matches ? '80%': '' }}
       >
         {/* {staked && <div className="staked"><h1>Staked</h1></div>} */}
         <img

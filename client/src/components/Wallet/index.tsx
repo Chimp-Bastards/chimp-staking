@@ -8,9 +8,10 @@ import "./index.css";
 import cyborgImg from "./IguanasCore.gif";
 import solanaImg from "./solana.webp";
 import useGetBalance from "../../hooks/useGetBalance";
-import { 
+import {
     // toast, 
-    ToastContainer, Zoom } from "react-toastify";
+    ToastContainer, Zoom
+} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import axios from "axios";
@@ -20,10 +21,16 @@ import { useEffect, useState } from "react";
 
 // import { Typography } from "@material-ui/core"
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 require('@solana/wallet-adapter-react-ui/styles.css');
 export interface IWalletProps { }
 
 const Wallet: React.FunctionComponent<IWalletProps> = (props) => {
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
     const wallet = useAnchorWallet();
     const balances = useGetBalance(wallet);
     // eslint-disable-next-line
@@ -64,19 +71,19 @@ const Wallet: React.FunctionComponent<IWalletProps> = (props) => {
     }
 
     return (
-        <section className="Wallet">
+        <section className="Wallet" style={{ width: '100%' }}>
             {!wallet && <div className="blurBackground"><WalletMultiButton style={{
-                backgroundColor: "#6b7fa0", 
-                margin: "auto", 
+                backgroundColor: "#6b7fa0",
+                margin: "auto",
+                fontSize: matches ? '10px' : ''
                 // height: "4rem", 
                 // minWidth: "15rem",  
                 // display: "block"
             }} /></div>}
             <div className={`Walletdiv${wallet ? " logged" : " unlogged"}`}>
                 <div className="WalletProfile">
-                    <h2> My Profile </h2>
+                    <h3> {wallet && (shortenAddress(wallet.publicKey?.toBase58() || ""))}{ } </h3>
                     <div className="profilePhotograph"> <img src={pp} alt="Profile Photograph" /> </div>
-                    <h2> {wallet && (shortenAddress(wallet.publicKey?.toBase58() || ""))}{ } </h2>
                 </div>
                 <div className="WalletBalance">
                     <div className="balanceBox">
@@ -106,6 +113,7 @@ const Wallet: React.FunctionComponent<IWalletProps> = (props) => {
                     {wallet && <WalletDisconnectButton style={{
                         backgroundColor: "#6b7fa0",
                         margin: "auto",
+                        fontSize: matches ? '12px' : ''
                         // height: "4rem",
                         // minWidth: "15rem",
                         // display: "block"

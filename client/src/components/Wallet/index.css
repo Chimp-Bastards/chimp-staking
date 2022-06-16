@@ -2,7 +2,7 @@
     .Wallet{
         display: block;
         grid-area: 1 / 6 / 6 / 7;
-        min-width: 25rem;
+        /* min-width: 25rem; */
     }
 }
 @media screen and (max-width:992px) {
@@ -45,7 +45,7 @@
 }
 .balanceBox{
     display: flex;
-    margin: 1rem 4rem;
+    /* margin: 1rem 4rem; */
     font-size: 0.75rem;
     font-weight: 600;
     border-radius: 7px;
@@ -59,7 +59,7 @@
     border-radius: 100%;
 }
 .balanceBoxText{
-    margin: auto auto auto 2rem; 
+    margin: auto auto auto 0; 
     float: right;
 }
 .balanceBoxBalance{

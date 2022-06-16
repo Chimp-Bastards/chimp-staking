@@ -1,6 +1,6 @@
 import "./index.css";
 
-import { Grid, Button, Typography, List } from "@material-ui/core";
+import { Grid, Button, Typography, List } from "@mui/material";
 import Wallet from "../../components/Wallet";
 // import WalletFetchNft from "../../components/WalletFetchNft";
 import NFTCard from "../NFTCard";
@@ -8,6 +8,9 @@ import { useEffect, useState } from "react";
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import * as anchor from "@project-serum/anchor"
 import { MagicSpinner } from "react-spinners-kit"
+
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import {
   // useAnchorWallet,
@@ -39,6 +42,9 @@ import axios from "axios";
 export interface IInnerPageProps { }
 
 const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   const wallet = useWallet();
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
@@ -361,7 +367,7 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
   };
 
   return (
-    <section className="innerPage">
+    <section className="innerPage" style={{ margin: matches ? '10px' : '' }}>
       {
         loading && <div className="loading-container">
           <MagicSpinner size={170} color="#00ff89" />
@@ -377,16 +383,16 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
         variant="overline"
         display="block"
         gutterBottom
-        style={{ fontSize: "22px" }}
+        style={{ fontSize: matches ? '14px' : "22px" }}
       >
         Stake Chimp Bastards and earn $FRUIT
       </Typography>
-      <Grid container spacing={2}>
-        <Grid item sm={4} xs={12}>
-          <div style={{ padding: "15px 60px" }}>
+      <Grid container spacing={0}>
+        <Grid item xs={4}>
+          <div style={{ padding: matches ? '0px' : "" }}>
             <p
               className="text-center unstaked-staked-header"
-              style={{ color: "white" }}
+              style={{ color: "white", fontSize: matches ? '16px' : '' }}
             >
               UNSTAKED
             </p>
@@ -396,7 +402,6 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
               style={{
                 height: 515,
                 overflow: "auto",
-                paddingLeft: "30px",
                 overflowX: "hidden",
               }}
             >
@@ -413,7 +418,7 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
                     )
                     .map((element, index) => {
                       return (
-                        <Grid item md={6} sm={6} xs={12}>
+                        <Grid item sm={6} xs={12}>
                           <NFTCard element={element} key={index} />
                         </Grid>
                       );
@@ -423,7 +428,9 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
             </List>
           </div>
           <div className="text-center  button-padding">
-            <Button className="cosmic" variant="outlined" onClick={stake}>
+            <Button className="cosmic" variant="outlined" onClick={stake} style={{
+              minWidth: matches ? '0px' : '150px'
+            }}>
               Stake
             </Button>
           </div>
@@ -432,6 +439,7 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
             variant="caption"
             display="block"
             gutterBottom
+            style={{ fontSize: matches ? '11px' : '' }}
           >
             Select the NFTs you want to stake
           </Typography>
@@ -440,18 +448,19 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
             variant="caption"
             display="block"
             gutterBottom
+            style={{ fontSize: matches ? '11px' : '' }}
           >
             While staking don't refresh until you see your Chimp under staked
           </Typography>
         </Grid>
-        <Grid item sm={4} xs={12}>
+        <Grid item xs={4}>
           <Wallet />
         </Grid>
-        <Grid item sm={4} xs={12}>
-          <div style={{ padding: "15px 60px" }}>
+        <Grid item xs={4}>
+          <div style={{ padding: matches ? '0px' : "" }}>
             <p
               className="text-center unstaked-staked-header"
-              style={{ color: "white" }}
+              style={{ color: "white", fontSize: matches ? '16px' : '' }}
             >
               STAKED
             </p>
@@ -471,7 +480,7 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
                     )
                     .map((element, index) => {
                       return (
-                        <Grid item sm={6} md={6} xs={6}>
+                        <Grid item sm={6} xs={12}>
                           <NFTCard element={element} key={index} />
                         </Grid>
                       );
@@ -484,30 +493,32 @@ const InnerPage: React.FunctionComponent<IInnerPageProps> = (props) => {
             className="text-center button-padding"
             style={{ marginBottom: "15px" }}
           >
-            <Button className="cosmic " variant="outlined" onClick={unStake}>
-              Unstake
-            </Button>
-          </div>
+            <Button className="cosmic" variant="outlined" onClick={unStake} style={{
+              minWidth: matches ? '0px' : '150px'
+            }}>
+            Unstake
+          </Button>
+        </div>
 
-          <div className="text-center" style={{ marginBottom: "15px" }}>
-            {receivableToken !== 0 ? (
-              <Button
-                className="cosmic"
-                variant="outlined"
-                disabled={isDisabled}
-                style={{ background: "none", border: "none" }}
-                onClick={receiveTokens}
-              >
-                {" "}
-                Claim $Fruit{" "}
-              </Button>
-            ) : (
-              ""
-            )}
-          </div>
-        </Grid>
+        <div className="text-center" style={{ marginBottom: "15px" }}>
+          {receivableToken !== 0 ? (
+            <Button
+              className="cosmic"
+              variant="outlined"
+              disabled={isDisabled}
+              style={{ background: "none", border: "none" }}
+              onClick={receiveTokens}
+            >
+              {" "}
+              Claim $Fruit{" "}
+            </Button>
+          ) : (
+            ""
+          )}
+        </div>
       </Grid>
-    </section>
+    </Grid>
+    </section >
   );
 };
 
