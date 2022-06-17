@@ -86,20 +86,31 @@ const Wallet: React.FunctionComponent<IWalletProps> = (props) => {
                     <div className="profilePhotograph"> <img src={pp} alt="Profile Photograph" /> </div>
                 </div>
                 <div className="WalletBalance">
-                    <div className="balanceBox">
-                        <img src={solanaImg} alt="Solana" />
-                        <div className="balanceBoxText">SOL</div>
-                        <div className="balanceBoxBalance"> {balances.solBalance} </div>
-                    </div>
+                    {
+                        !matches && (
+                            <>
+                                <div className="balanceBox">
+                                    <img src={solanaImg} alt="Solana" />
+                                    <div className="balanceBoxText" style={{ fontSize: matches ? '10px' : '' }}>SOL</div>
+                                    <div className="balanceBoxBalance" style={{ fontSize: matches ? '10px' : '' }}> {balances.solBalance} </div>
+                                </div>
+                                <div className="balanceBox">
+                                    <img src={cyborgImg} alt="cyborg" />
+                                    <div className="balanceBoxText" style={{ fontSize: matches ? '10px' : '' }}>Fruit</div>
+                                    <div className="balanceBoxBalance" style={{ fontSize: matches ? '10px' : '' }}> {balances.valknutBalance} </div>
+                                </div>
+                            </>
+                        )
+                    }
+
                     <div className="balanceBox">
                         <img src={cyborgImg} alt="cyborg" />
-                        <div className="balanceBoxText">Fruit</div>
-                        <div className="balanceBoxBalance"> {balances.valknutBalance} </div>
-                    </div>
-                    <div className="balanceBox">
-                        <img src={cyborgImg} alt="cyborg" />
-                        <div className="balanceBoxText">Stake Rewards</div>
-                        <div className="balanceBoxBalance"> {receivableToken} </div>
+                        {
+                            !matches && (
+                                <div className="balanceBoxText" style={{ fontSize: matches ? '10px' : '' }}>Stake Rewards</div>
+                            )
+                        }
+                        <div className="balanceBoxBalance" style={{ fontSize: matches ? '10px' : '' }}> {receivableToken} </div>
                     </div>
                 </div>
                 {/* <div className="WalletStakeRewards">
